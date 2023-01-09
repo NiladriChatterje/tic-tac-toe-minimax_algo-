@@ -64,10 +64,10 @@ function gameOver(gameWon) {
 	for (let i = 0; i < cells.length; i++) {
 		cells[i].removeEventListener('click', turnClick, false);
 	}
-	declareWinner(gameWon.player == humanPlayer ? "You win!" : "You lose.");
+	declare(gameWon.player == humanPlayer ? "You won!" : "You lost.");
 }
 
-function declareWinner(who) {
+function declare(who) {
 	document.querySelector(".endgameResult").style.transform = "scale(1,1)";
 	document.querySelector(".endgameResult .text").textContent = who;
 }
@@ -86,7 +86,7 @@ function checkTie() {
 			cells[i].style.backgroundColor = "green";
 			cells[i].removeEventListener('click', turnClick, false);
 		}
-		declareWinner("Tie!")
+		declare("Tie!")
 		return true;
 	}
 	return false;

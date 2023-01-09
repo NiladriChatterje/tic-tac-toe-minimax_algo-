@@ -2,14 +2,14 @@
   display: flex;
   width:100%;
   height:100vh;
-  background-image: linear-gradient(to bottom right,rgb(0, 177, 109),rgb(0, 43, 130));
+  background-image: linear-gradient(to bottom right,rgb(244, 244, 244),rgb(0, 43, 130));
   justify-content: center;
   align-items: center;
 }
 body{margin:0;place-items: center;}
 
 table{
-  background-image:linear-gradient(to bottom left,rgb(74, 62, 143),rgb(104, 31, 106)) ;
+  background-image:linear-gradient(to bottom left,rgb(74, 62, 143),rgb(13, 14, 69)) ;
 color:white;
 transform:translateY(-20%);
 border-radius: 10px;
@@ -43,14 +43,15 @@ table tr td:last-child {
 .endgameResult {
   transition: all;
   transition-duration: 100ms;
-  width: 80%;
+  width: 40%;
   top: 30%;
-  left: 37%;
+  left: 30%;
   z-index: 1;
+  font-weight: 900;
   transform: translateX(-50%) scale(0,0);
-  background-color: rgba(53, 51, 174, 0.8);
-  box-shadow: 2px 2px 5px -2px black;
-  backdrop-filter: blur(5px);
+  background-color: rgba(30, 29, 109, 0.90);
+  box-shadow: 2px 2px 55px -0.2px rgb(16, 27, 74);
+  backdrop-filter: blur(10px);
   position: absolute;
   padding: 80px 0;
   text-align: center;
