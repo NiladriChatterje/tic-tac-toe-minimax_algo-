@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css'
 
-var origBoard;
+let origBoard;
 const huPlayer = 'O';
 const aiPlayer = 'X';
 const winCombos = [
@@ -17,14 +17,15 @@ const winCombos = [
 
 const cells = document.querySelectorAll('.cell');
 
+
 function start() {
-	document.querySelector(".endgameResult").style.transform = "scale(0,0)";
-	origBoard = Array.from(Array(9).keys());
-	for (let i = 0; i < cells.length; i++) {
-		cells[i].innerText = '';
-		cells[i].style.removeProperty('background-color');
-		cells[i].addEventListener('click', turnClick, false);
-	}
+  document.querySelector(".endgameResult").style.transform = "scale(0,0)";
+  origBoard = Array.from(Array(9).keys());
+  for (let i = 0; i < cells.length; i++) {
+    cells[i].innerText = '';
+    cells[i].style.removeProperty('background-color');
+    cells[i].addEventListener('click', turnClick, false);
+  }
 }
 
 function turnClick(square) {
@@ -58,7 +59,7 @@ function gameOver(gameWon) {
 	for (let index of winCombos[gameWon.index]) {
 		document.getElementById(index).style.backgroundColor = gameWon.player == huPlayer ? "rgba(70,70,200,0.88)" : "rgba(200,40,40,0.9)";
 	}
-	for (var i = 0; i < cells.length; i++) {
+	for (let i = 0; i < cells.length; i++) {
 		cells[i].removeEventListener('click', turnClick, false);
 	}
 	declareWinner(gameWon.player == huPlayer ? "You win!" : "You lose.");
@@ -79,7 +80,7 @@ function bestSpot() {
 
 function checkTie() {
 	if (emptySquares().length == 0) {
-		for (var i = 0; i < cells.length; i++) {
+		for (let i = 0; i < cells.length; i++) {
 			cells[i].style.backgroundColor = "green";
 			cells[i].removeEventListener('click', turnClick, false);
 		}
@@ -90,7 +91,7 @@ function checkTie() {
 }
 
 function minimax(newBoard, player) {
-	var availSpots = emptySquares();
+	let availSpots = emptySquares();
 
 	if (checkWin(newBoard, huPlayer)) {
 		return {score: -10};
@@ -101,7 +102,7 @@ function minimax(newBoard, player) {
 	}
 	let moves = [];
 	for (let i = 0; i < availSpots.length; i++) {
-		var move = {};
+		let move = {};
 		move.index = newBoard[availSpots[i]];
 		newBoard[availSpots[i]] = player;
 
@@ -118,7 +119,7 @@ function minimax(newBoard, player) {
 		moves.push(move);
 	}
 
-	var bestMove;
+	let bestMove;
 	if(player === aiPlayer) {
 		let bestScore = -10000;
 		for(let i = 0; i < moves.length; i++) {
@@ -143,7 +144,6 @@ function minimax(newBoard, player) {
 function App() {
  
 React.useEffect(()=>start(),[]);
-
 
   return (
     <div className="App">
