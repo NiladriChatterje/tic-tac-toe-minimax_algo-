@@ -43,7 +43,7 @@ table tr td:last-child {
 .endgameResult {
   transition: all;
   transition-duration: 100ms;
-  width: 400px;
+  width: 80%;
   top: 30%;
   left: 37%;
   z-index: 1;
@@ -87,6 +87,6 @@ button{
 @media all and (max-width:800px){
   .endgameResult{
     left:4%;
-    width:380px;
+    width:90%;
   }
 }
