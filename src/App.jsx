@@ -2,8 +2,8 @@ import React from 'react';
 import './App.css'
 
 let origBoard;
-const huPlayer = 'O';
-const aiPlayer = 'X';
+const humanPlayer = 'O';
+const ArtificialPlayer = 'X';
 const winCombos = [
 	[0, 1, 2],
 	[3, 4, 5],
@@ -13,25 +13,27 @@ const winCombos = [
 	[2, 5, 8],
 	[0, 4, 8],
 	[6, 4, 2]
-]
+];
 
-const cells = document.querySelectorAll('.cell');
+var cells;
 
 
-function start() {
-  document.querySelector(".endgameResult").style.transform = "scale(0,0)";
-  origBoard = Array.from(Array(9).keys());
-  for (let i = 0; i < cells.length; i++) {
-    cells[i].innerText = '';
-    cells[i].style.removeProperty('background-color');
-    cells[i].addEventListener('click', turnClick, false);
+function App() {
+  
+ function start(){
+    document.querySelector(".endgameResult").style.transform = "scale(0,0)";
+    origBoard = Array.from(Array(9).keys());
+    for (let i = 0; i < cells.length; i++) {
+      cells[i].innerText = '';
+      cells[i].style.removeProperty('background-color');
+      cells[i].addEventListener('click', turnClick);
+    };
   }
-}
 
 function turnClick(square) {
 	if (typeof origBoard[square.target.id] == 'number') {
-		turn(square.target.id, huPlayer)
-		if (!checkWin(origBoard, huPlayer) && !checkTie()) turn(bestSpot(), aiPlayer);
+		turn(square.target.id, humanPlayer)
+		if (!checkWin(origBoard, humanPlayer) && !checkTie()) turn(bestSpot(), ArtificialPlayer);
 	}
 }
 
@@ -57,12 +59,12 @@ function checkWin(board, player) {
 
 function gameOver(gameWon) {
 	for (let index of winCombos[gameWon.index]) {
-		document.getElementById(index).style.backgroundColor = gameWon.player == huPlayer ? "rgba(70,70,200,0.88)" : "rgba(200,40,40,0.9)";
+		document.getElementById(index).style.backgroundColor = gameWon.player == humanPlayer ? "rgba(70,70,200,0.88)" : "rgba(200,40,40,0.9)";
 	}
 	for (let i = 0; i < cells.length; i++) {
 		cells[i].removeEventListener('click', turnClick, false);
 	}
-	declareWinner(gameWon.player == huPlayer ? "You win!" : "You lose.");
+	declareWinner(gameWon.player == humanPlayer ? "You win!" : "You lose.");
 }
 
 function declareWinner(who) {
@@ -75,7 +77,7 @@ function emptySquares() {
 }
 
 function bestSpot() {
-	return minimax(origBoard, aiPlayer).index;
+	return minimax(origBoard, ArtificialPlayer).index;
 }
 
 function checkTie() {
@@ -93,9 +95,9 @@ function checkTie() {
 function minimax(newBoard, player) {
 	let availSpots = emptySquares();
 
-	if (checkWin(newBoard, huPlayer)) {
+	if (checkWin(newBoard, humanPlayer)) {
 		return {score: -10};
-	} else if (checkWin(newBoard, aiPlayer)) {
+	} else if (checkWin(newBoard, ArtificialPlayer)) {
 		return {score: 10};
 	} else if (availSpots.length === 0) {
 		return {score: 0};
@@ -106,11 +108,11 @@ function minimax(newBoard, player) {
 		move.index = newBoard[availSpots[i]];
 		newBoard[availSpots[i]] = player;
 
-		if (player == aiPlayer) {
-			let result = minimax(newBoard, huPlayer);
+		if (player == ArtificialPlayer) {
+			let result = minimax(newBoard, humanPlayer);
 			move.score = result.score;
 		} else {
-			let result = minimax(newBoard, aiPlayer);
+			let result = minimax(newBoard, ArtificialPlayer);
 			move.score = result.score;
 		}
 
@@ -120,7 +122,7 @@ function minimax(newBoard, player) {
 	}
 
 	let bestMove;
-	if(player === aiPlayer) {
+	if(player === ArtificialPlayer) {
 		let bestScore = -10000;
 		for(let i = 0; i < moves.length; i++) {
 			if (moves[i].score > bestScore) {
@@ -140,10 +142,10 @@ function minimax(newBoard, player) {
 
 	return moves[bestMove];
 }
+React.useEffect(()=>{
+  cells = document.querySelectorAll('.cell');
+  start()},[]);
 
-function App() {
- 
-React.useEffect(()=>start(),[]);
 
   return (
     <div className="App">
