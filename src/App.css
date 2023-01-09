@@ -88,6 +88,7 @@ button{
 @media all and (max-width:800px){
   .endgameResult{
     left:4%;
+    padding:90px 0;
     width:90%;
   }
 }
